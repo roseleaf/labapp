@@ -1,0 +1,13 @@
+{
+  "name": "labapp",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "bootstrap-sass": "~2.3.1",
+    "ember": "~1.0.0",
+    "ember-data-shim": "~1.0.0"
+  },
+  "devDependencies": {
+    "ember-mocha-adapter": "0.1.1"
+  }
+}
