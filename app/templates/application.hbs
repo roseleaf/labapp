@@ -1,4 +1,4 @@
-<div>
+<div id="main" class="container">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
@@ -12,19 +12,30 @@
         <div class="row-fluid">
             <div>
                 <div class="span3">
-                    <div class="well sidebar-nav">
-                        <span class="nav-header">Colors</span>
-                        <ul class="nav nav-list">
-                        {{#each item in controller}}
-                            <li>{{item}}</li>
-                        {{/each}}
-                        </ul>
-                    </div>
+                  <div id="top-nav" class="well sidebar-nav">
+                    <ul id="navbar">
+                      <li>
+                        {{#linkTo 'index'}}Labs Home{{/linkTo}}
+                      </li>
+                      <li>
+                        {{#linkTo 'getstarted'}}Getting Started{{/linkTo}}
+                        {{outlet startNav}}
+                      </li>
+                      <li>
+                        {{#linkTo 'extensions'}}Labs Directory{{/linkTo}}
+                        {{outlet sideFilter}}
+                      </li>
+
+                    </ul>
+                  </div>
                 </div>
-                <div class="span9">
+                <div class="span9 content">
                     {{outlet}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<footer>
+</footer>

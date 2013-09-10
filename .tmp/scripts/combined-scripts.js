@@ -13,7 +13,7 @@ Labapp.ExtensionEditController = Ember.ObjectController.extend({
   save: function(){
     // we're cheating here that there's no commit()
     // but the UI element is already bound to the model
-    this.transitionToRoute('user',this.get('model'));
+    this.transitionToRoute('extension',this.get('model'));
   }
 });
 
@@ -192,6 +192,46 @@ Labapp.ExtensionsRoute = Ember.Route.extend({
 
 (function() {
 
+Labapp.GetstartedRoute = Ember.Route.extend({
+	events: {
+		selectTab: function(name) {
+			this.render(name, { into: 'getstarted', outlet: 'maintab' });
+			this.controller.setActiveTab();
+    	},
+    	willTransition: function() {
+    		this.controller.setActiveTab();
+    	}
+	},
+
+	renderTemplate: function(){
+		this.render();
+		this.render('startside', {into: 'application', outlet: 'startNav'});
+		this.render('privateapps', {into: 'getstarted', outlet: 'maintab'});
+	},
+	setupController: function(controller){
+		controller.set('setActiveTab', function(){
+    		$('#directionsType a').click(function(){
+	      		$('.active').removeClass('active');
+	      		$(this).addClass('active');
+	    	});
+	  	});
+	}
+});
+
+})();
+
+(function() {
+
+Labapp.IndexRoute = Ember.Route.extend({
+  redirect: function(){
+    this.transitionTo('home');
+  }
+});
+
+})();
+
+(function() {
+
 Labapp.BoundTextFieldView = Ember.TextField.extend({
   valueBinding: 'content.value',
   contentChanged: function() {
@@ -217,9 +257,19 @@ Labapp.ExtensionEditView = Ember.View.extend({
 (function() {
 
 Labapp.ExtensionView = Ember.View.extend({
-    templateName: 'extension'
+    templateName: 'extension',
+	showModal: function(){
+		modal: this.createChildView(Ember.View.create({
+			templateName: 'disclaimer',
+			controller: this.controller,
+			dismissModal: function(){
+				this.remove();
+				$('#overlay').fadeOut(700);
+			}
+		})).appendTo('body');
+		$('#overlay').fadeIn(700);
+	}
 });
-
 
 })();
 
@@ -244,7 +294,9 @@ Labapp.ExtensionsView = Ember.View.extend({
 (function() {
 
 Labapp.Router.map(function () {
-  
+  this.route("home", {path: "index"});  
+  this.route("getstarted");
+
   this.resource('extension_edit');
   this.resource('extension_edit', { path: '/extension_edit/:extension_edit_id' });
   this.resource('extension_edit.edit', { path: '/extension_edit/:extension_edit_id/edit' });
@@ -254,6 +306,18 @@ Labapp.Router.map(function () {
   this.resource('extension.edit', { path: '/extension/:extension_id/edit' });
   
 });
+
+
+// App.Router.map(function() {
+//   this.route("home", {path: "index"});  
+//   this.resource('extensions', function() {
+//     this.route('edit');
+//     this.route('new');
+//   });
+//   this.resource('extension', { path: '/:extension_id'});
+
+// });
+
 
 
 })();
