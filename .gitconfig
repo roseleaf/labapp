@@ -1,0 +1,2 @@
+push = +refs/heads/master:refs/heads/gh-pages
+push = +refs/heads/master:refs/heads/master
