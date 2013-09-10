@@ -3,7 +3,7 @@
 // });
 
 DS.RESTAdapter.reopen({
-  host: 'http://zenlabs_beta.dev',
+  host: 'http://zenlabsbeta.herokuapp.com',
   namespace: 'api/v1'  
 });
 Labapp.Store = DS.Store.extend({
